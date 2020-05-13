@@ -13,6 +13,9 @@
                             <th class="th-sm">Created At
 
                             </th>
+                            <th class="th-sm">Action
+
+                            </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -22,6 +25,11 @@
                                     <td>{{$task->domain_name}}</td>
                                     <td>{{$task->datetime}}</td>
                                     <td>{{$task->created_at}}</td>
+                                    <td>
+                                        <button type="button" class="close" aria-label="Close" onclick="deleteThis({{$task->id}})">
+                                             <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </td>
                                 </tr>
                             @endforeach 
 
@@ -38,6 +46,9 @@
 
                             </th>
                             <th class="th-sm">Created At
+
+                            </th>
+                            <th class="th-sm">Action
 
                             </th>
                             </tr>

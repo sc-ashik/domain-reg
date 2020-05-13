@@ -129,7 +129,7 @@
       margin-top: 10px;
       text-align: center;
       }
-      button {
+      .button {
       width: 150px;
       padding: 10px;
       border: none;
@@ -139,7 +139,7 @@
       color: #fff;
       cursor: pointer;
       }
-      button:hover {
+      .button:hover {
       background: #6eb8dd;
       }
       @media (min-width: 568px) {

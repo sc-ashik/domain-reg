@@ -28,7 +28,7 @@ class HomeController extends Controller
     {
         $completed_tasks=CompletedTask::orderBy("id","desc")->get();
         $scheduled_tasks=Task::orderBy("scheduled_at","asc")->get();
-        return view('home',["completed_tasks"=>$completed_tasks,"scheduled_tasks"=>$scheduled_tasks]);
+        return view('home',["completed_tasks"=>$completed_tasks,"scheduled_tasks"=>$scheduled_tasks,"minDate"=>Carbon::now()->toDateString(),"minTime"=>Carbon::now()->format('H:i')]);
     }
     public function table1()
     {
