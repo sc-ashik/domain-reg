@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+// Auth::routes(['register' => false]);
+Auth::routes();
+
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/table1', 'HomeController@table1');
+Route::get('/table2', 'HomeController@table2');
