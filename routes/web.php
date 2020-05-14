@@ -24,7 +24,8 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/table1', 'HomeController@table1');
 Route::get('/table2', 'HomeController@table2');
 Route::resources([
-    'task' => 'TaskController'
+    'task' => 'TaskController',
+    'completedtask'=>'CompletedTaskController'
 ]);
 
 Route::post('resello', function () {

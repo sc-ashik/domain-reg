@@ -39,8 +39,9 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request->all();
         if($request->input("register")){
-            $scheduled_at=Carbon::now();
+            // $scheduled_at=Carbon::now();
             $domains=explode("\r\n", $request->input("domains"));
             // return var_dump($domains);
             foreach($domains as $domain){
@@ -70,13 +71,14 @@ class TaskController extends Controller
                     ],
                     "http_errors"=>false
                 ]);
+                $received_at=Carbon::now();
                 $rjson=json_decode($response->getBody());
                 $success = $rjson->success? 'true' : 'false';
                 CompletedTask::create([
                     "domain_name"=>$domain,
-                    "scheduled_at"=>$scheduled_at,
-                    "requested_at"=>$requested_at,
-                    "received_at"=>Carbon::now(),
+                    "begin_time"=>$requested_at,
+                    "end_time"=>$received_at,
+                    "req_count"=>1,
                     "response"=>"success:".$success
                 ]);
             }
@@ -85,13 +87,15 @@ class TaskController extends Controller
         }
         else{
             $domains=explode("\r\n", $request->input("domains"));
-            $datetime=$request->input("date")." ".$request->input("time");
-            $datetime=Carbon::create($datetime);
-            $microsecond=$datetime->timestamp;
+            // $datetime=$request->input("date")." ".$request->input("time");
+            $begin_datetime=Carbon::create($request->input('begin'));
+            $begin_microsecond=$begin_datetime->timestamp;
+            $end_datetime=Carbon::create($request->input('end'));
+            $end_microsecond=$end_datetime->timestamp;
             // return $datetime;
             
             foreach($domains as $domain){
-                Task::create(["domain_name"=>$domain,"scheduled_at"=>$microsecond,"datetime"=>$datetime]);
+                Task::create(["domain_name"=>$domain,"scheduled_at"=>$begin_microsecond,"datetime"=>$begin_datetime,'end_at'=>$end_microsecond,"end_datetime"=>$end_datetime]);
             }
         }
         return redirect('/')->with('message', 'Successfully scheduled!');

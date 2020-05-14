@@ -7,10 +7,10 @@
                             <th class="th-sm">Domain Name
 
                             </th>
-                            <th class="th-sm">Scheduled At
+                            <th class="th-sm">Start Time
 
                             </th>
-                            <th class="th-sm">Created At
+                            <th class="th-sm">End Time
 
                             </th>
                             <th class="th-sm">Action
@@ -24,7 +24,7 @@
                                     <td>{{$task->id}}</td>
                                     <td>{{$task->domain_name}}</td>
                                     <td>{{$task->datetime}}</td>
-                                    <td>{{$task->created_at}}</td>
+                                    <td>{{$task->end_datetime}}</td>
                                     <td>
                                         <button type="button" class="close" aria-label="Close" onclick="deleteThis({{$task->id}})">
                                              <span aria-hidden="true">&times;</span>
@@ -42,10 +42,10 @@
                             <th class="th-sm">Domain Name
 
                             </th>
-                            <th class="th-sm">Scheduled At
+                            <th class="th-sm">Start Time
 
                             </th>
-                            <th class="th-sm">Created At
+                            <th class="th-sm">End Time
 
                             </th>
                             <th class="th-sm">Action

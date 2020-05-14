@@ -18,6 +18,8 @@ class CreateTasksTable extends Migration
             $table->string("domain_name");
             $table->bigInteger("scheduled_at");
             $table->dateTime("datetime");
+            $table->bigInteger('end_at');
+            $table->dateTime("end_datetime");
             $table->timestamps();
         });
     }

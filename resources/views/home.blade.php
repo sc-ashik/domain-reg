@@ -38,17 +38,12 @@
                             </div>
 
                             <div class="item">
-                                <p>Reservation Date</p>
-                            <input id="date" type="date" name="date" class="@error('date') is-invalid @enderror" min="{{$minDate}}"/>
-                                <i class="fas fa-calendar-alt"></i>
-                                @error('date')
-                                    <div id="time" class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                                
+                                <p>Start Datetime</p>
+                                <input id="date" step="1" type="datetime-local" name="begin" min="{{$minDate}}"/>
                             </div>
                                 <div class="item">
-                                <p>Reservation Time</p>
-                                <input type="time" name="time" id="time" />
+                                <p>Stop Datetime</p>
+                                <input type="datetime-local" name="end" id="time" step="1"/>
                             </div>
 
                             
@@ -92,30 +87,30 @@
         
     </div>
     <script type="application/javascript"> 
-        Date.prototype.timeNow = function () {
-            return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + (this.getMinutes());
-        }
+        // Date.prototype.timeNow = function () {
+        //     return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + (this.getMinutes());
+        // }
         var p2=0
         var table1=null
         var table2=null
         $(document).ready(function () {
-            $("#date").on("input",function(){
-                var datenow=curday('-')
-                var selectedDate=$(this).val()
-                // console.log($(this).val()+ "== "+datenow)
-                if(datenow==selectedDate){
-                    var timeNow=new Date().timeNow()
-                    console.log(timeNow)
-                    $('#time').attr("min",timeNow);
+            // $("#date").on("input",function(){
+            //     var datenow=curday('-')
+            //     var selectedDate=$(this).val()
+            //     // console.log($(this).val()+ "== "+datenow)
+            //     if(datenow==selectedDate){
+            //         var timeNow=new Date().timeNow()
+            //         console.log(timeNow)
+            //         $('#time').attr("min",timeNow);
 
-                }
-                else{
-                    $('#time').removeAttr('min')
-                }
-            })
+            //     }
+            //     else{
+            //         $('#time').removeAttr('min')
+            //     }
+            // })
             $("#scBtn").click(function(e){
                 var splitted=$("#domains").val().split("\n")
-                console.log("zz "+splitted)
+                // console.log("zz "+splitted)
                 var flag=true
                 splitted.forEach(element => {
                     flag=flag && CheckIsValidDomain(element)
@@ -133,21 +128,35 @@
                 var date=$("#date").val()              
                 if(!date){
                     // alert(date)
-                    document.getElementById("date").setCustomValidity('Date is required')
+                    document.getElementById("date").setCustomValidity('Field is required')
                     // e.preventDefault()
                 }
-                else
-                    document.getElementById("date").setCustomValidity('')
+                else{
+                    var now = new Date()
+                    var selected=new Date(date)
+                    console.log(now+" " +selected)
+                    if(selected<=now)
+                        document.getElementById("date").setCustomValidity("Can't be Past")
+                    else
+                        document.getElementById("date").setCustomValidity('')
+                    // alert(1)
+                }
 
                 var time=$("#time").val()              
                 if(!time){
                     // alert(date)
-                    document.getElementById("time").setCustomValidity('Time is required')
+                    document.getElementById("time").setCustomValidity('Field is required')
                     // e.preventDefault()
                 }
                 else{
-
-                    document.getElementById("time").setCustomValidity('')
+                    var now = new Date()
+                    var selected=new Date(time)
+                    console.log(now+" " +selected)
+                    if(selected<=now)
+                        document.getElementById("time").setCustomValidity("Can't be Past")
+                    else
+                        document.getElementById("time").setCustomValidity('')
+                    // alert(1)
                 }
                     
             })
@@ -220,6 +229,20 @@
             $.ajax({
                 type:'DELETE',
                 url:"/task/"+id,
+                success:function(data){
+                    console.log(data);
+                }
+            });
+        }
+        function deleteThisCom(id){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type:'DELETE',
+                url:"/completedtask/"+id,
                 success:function(data){
                     console.log(data);
                 }

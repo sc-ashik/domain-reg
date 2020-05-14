@@ -16,9 +16,9 @@ class CreateCompletedTasksTable extends Migration
         Schema::create('completed_tasks', function (Blueprint $table) {
             $table->id();
             $table->string('domain_name');
-            $table->dateTime("scheduled_at");
-            $table->dateTime("requested_at");
-            $table->dateTime("received_at");
+            $table->dateTime("begin_time");
+            $table->dateTime("end_time");
+            $table->bigInteger("req_count");
             $table->string("response");
             $table->timestamps();
         });

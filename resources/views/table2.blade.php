@@ -4,19 +4,22 @@
                             <th class="th-sm">ID
 
                             </th>
-                            <th class="th-sm">Domain Name
+                            <th class="th-sm"> Domain Name
 
                             </th>
-                            <th class="th-sm">Scheduled At
+                            <th class="th-sm"> Start Time
 
                             </th>
-                            <th class="th-sm"> Fast Request At
-
-                            </th>
-                            <th class="th-sm"> Last Request At
+                            <th class="th-sm"> End Time
 
                             </th>
                             <th class="th-sm"> Response
+
+                            </th>
+                            <th class="th-sm"> Req Count
+
+                            </th>
+                            <th class="th-sm"> Action
 
                             </th>
                             {{-- <th class="th-sm"> Created At
@@ -29,10 +32,15 @@
                                 <tr>
                                     <td>{{$task->id}}</td>
                                     <td>{{$task->domain_name}}</td>
-                                    <td>{{$task->scheduled_at}}</td>
-                                    <td>{{$task->requested_at}}</td>
-                                    <td>{{$task->received_at}}</td>
+                                    <td>{{$task->begin_time}}</td>
+                                    <td>{{$task->end_time}}</td>
                                     <td>{{$task->response}}</td>
+                                    <td>{{$task->req_count}}</td>
+                                    <td>
+                                        <button type="button" class="close" aria-label="Close" onclick="deleteThisCom({{$task->id}})">
+                                             <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </td>
                                     {{-- <td>{{$task->created_at}}</td> --}}
 
                                 </tr>
@@ -44,19 +52,22 @@
                             <th class="th-sm">ID
 
                             </th>
-                            <th class="th-sm">Domain Name
+                            <th class="th-sm"> Domain Name
 
                             </th>
-                            <th class="th-sm">Scheduled At
+                            <th class="th-sm"> Start Time
 
                             </th>
-                            <th class="th-sm"> Fast Request At
-
-                            </th>
-                            <th class="th-sm"> Last Request At
-
+                            <th class="th-sm"> End Time
+                                
                             </th>
                             <th class="th-sm"> Response
+
+                            </th>
+                            <th class="th-sm"> Req Count
+
+                            </th>
+                            <th class="th-sm"> Action
 
                             </th>
                             {{-- <th class="th-sm"> Created At
