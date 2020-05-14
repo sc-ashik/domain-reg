@@ -26,6 +26,7 @@ Route::get('/table2', 'HomeController@table2');
 Route::resources([
     'task' => 'TaskController'
 ]);
-Route::post('/resello',function(){
+
+Route::post('resello', function () {
     return '{"success":true}';
 });

@@ -50,15 +50,22 @@ class TaskController extends Controller
                 ]);
                 
                 $requested_at=Carbon::now();
+                // $response = $client->post(env("RESELLO_API_URL"), [
+                //     'json' => [
+                //         "customer"=> env("CUSTOMER_ID"),
+                //         "type"=> "new",
+                //         "order"=> [
+                //                 "type"=> "domain-register-order",
+                //                 "name"=> $domain,
+                //                 "interval"=> 12
+                //             ]
+                //     ]  
+                // ]);
                 $response = $client->post(env("RESELLO_API_URL"), [
                     'json' => [
                         "customer"=> env("CUSTOMER_ID"),
-                        "type"=> "new",
-                        "order"=> [
-                                "type"=> "domain-register-order",
-                                "name"=> $domain,
-                                "interval"=> 12
-                            ]
+                        "domain"=> $domain,
+                        "interval"=> 12
                     ]  
                 ]);
                 $rjson=json_decode($response->getBody());
