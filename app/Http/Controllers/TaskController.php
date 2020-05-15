@@ -7,7 +7,7 @@ use App\Task;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
-
+use Illuminate\Support\Facades\Redirect;
 
 class TaskController extends Controller
 {
@@ -92,13 +92,17 @@ class TaskController extends Controller
             $begin_microsecond=$begin_datetime->timestamp;
             $end_datetime=Carbon::create($request->input('end'));
             $end_microsecond=$end_datetime->timestamp;
+
+            if($end_microsecond<=$begin_microsecond || $end_microsecond-$begin_microsecond>10)
+              return Redirect::back()->withErrors(["Duraction can't be negative or more than 10 s"]);
+
             // return $datetime;
             
             foreach($domains as $domain){
                 Task::create(["domain_name"=>$domain,"scheduled_at"=>$begin_microsecond,"datetime"=>$begin_datetime,'end_at'=>$end_microsecond,"end_datetime"=>$end_datetime]);
             }
         }
-        return redirect('/')->with('message', 'Successfully scheduled!');
+        return Redirect::back()->with('message', 'Successfully scheduled!');
 
     }
 

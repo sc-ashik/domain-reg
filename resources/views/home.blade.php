@@ -21,6 +21,11 @@
                             {{ session()->get('message') }}
                         </div>
                     @endif
+                    @if($errors->any())
+                        <div class="alert alert-danger">
+                            {{$errors->first()}}</h4>
+                        </div>
+                    @endif
                     <div class="card-body">
                         @if (session('status'))
                             <div class="alert alert-success" role="alert">
@@ -132,12 +137,12 @@
                     // e.preventDefault()
                 }
                 else{
-                    var now = new Date()
-                    var selected=new Date(date)
-                    console.log(now+" " +selected)
-                    if(selected<=now)
-                        document.getElementById("date").setCustomValidity("Can't be Past")
-                    else
+                    // var now = new Date()
+                    // var selected=new Date(date)
+                    // console.log(now+" " +selected)
+                    // if(selected<=now)
+                    //     document.getElementById("date").setCustomValidity("Can't be Past")
+                    // else
                         document.getElementById("date").setCustomValidity('')
                     // alert(1)
                 }
@@ -149,12 +154,12 @@
                     // e.preventDefault()
                 }
                 else{
-                    var now = new Date()
-                    var selected=new Date(time)
-                    console.log(now+" " +selected)
-                    if(selected<=now)
-                        document.getElementById("time").setCustomValidity("Can't be Past")
-                    else
+                    // var now = new Date()
+                    // var selected=new Date(time)
+                    // console.log(now+" " +selected)
+                    // if(selected<=now)
+                    //     document.getElementById("time").setCustomValidity("Can't be Past")
+                    // else
                         document.getElementById("time").setCustomValidity('')
                     // alert(1)
                 }
