@@ -13,7 +13,7 @@
                             <th class="th-sm">End Time
 
                             </th>
-                            <th class="th-sm">Request/Sec
+                            <th class="th-sm">Sleep Time
 
                             </th>
                             <th class="th-sm">Action
@@ -52,7 +52,7 @@
                             <th class="th-sm">End Time
 
                             </th>
-                            <th class="th-sm">Request/Sec
+                            <th class="th-sm">Sleep Time
 
                             </th>
                             <th class="th-sm">Action
