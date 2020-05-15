@@ -140,12 +140,12 @@
                     // e.preventDefault()
                 }
                 else{
-                    // var now = new Date()
-                    // var selected=new Date(date)
-                    // console.log(now+" " +selected)
-                    // if(selected<=now)
-                    //     document.getElementById("date").setCustomValidity("Can't be Past")
-                    // else
+                    var now = new Date()
+                    var selected=new Date(date)
+                    console.log(now+" " +selected)
+                    if(selected<=now)
+                        document.getElementById("date").setCustomValidity("Can't be Past")
+                    else
                         document.getElementById("date").setCustomValidity('')
                     // alert(1)
                 }
@@ -157,12 +157,12 @@
                     // e.preventDefault()
                 }
                 else{
-                    // var now = new Date()
-                    // var selected=new Date(time)
-                    // console.log(now+" " +selected)
-                    // if(selected<=now)
-                    //     document.getElementById("time").setCustomValidity("Can't be Past")
-                    // else
+                    var now = new Date()
+                    var selected=new Date(time)
+                    console.log(now+" " +selected)
+                    if(selected<=now)
+                        document.getElementById("time").setCustomValidity("Can't be Past")
+                    else
                         document.getElementById("time").setCustomValidity('')
                     // alert(1)
                 }
