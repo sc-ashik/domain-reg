@@ -94,8 +94,8 @@ class TaskController extends Controller
             $end_datetime=Carbon::create($request->input('end'));
             $end_microsecond=$end_datetime->timestamp;
 
-            if($end_microsecond<=$begin_microsecond || $end_microsecond-$begin_microsecond>10)
-              return Redirect::back()->withErrors(["Duraction can't be negative or more than 10 s"]);
+            if($end_microsecond<=$begin_microsecond || $end_microsecond-$begin_microsecond>15)
+              return Redirect::back()->withErrors(["Duraction can't be negative or more than 15 s"]);
 
             // return $datetime;
             
