@@ -139,6 +139,10 @@
       color: #fff;
       cursor: pointer;
       }
+       .numB {
+      width: 150px;
+      padding: 10px;
+      }
       .button:hover {
       background: #6eb8dd;
       }

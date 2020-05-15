@@ -19,6 +19,7 @@ class CreateCompletedTasksTable extends Migration
             $table->dateTime("begin_time");
             $table->dateTime("end_time");
             $table->bigInteger("req_count");
+            $table->dateTime("last_response");
             $table->string("response");
             $table->timestamps();
         });

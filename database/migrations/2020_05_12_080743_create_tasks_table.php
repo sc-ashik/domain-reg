@@ -20,6 +20,7 @@ class CreateTasksTable extends Migration
             $table->dateTime("datetime");
             $table->bigInteger('end_at');
             $table->dateTime("end_datetime");
+            $table->bigInteger("req_p_sec");
             $table->timestamps();
         });
     }

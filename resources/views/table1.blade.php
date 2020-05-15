@@ -13,6 +13,9 @@
                             <th class="th-sm">End Time
 
                             </th>
+                            <th class="th-sm">Request/Sec
+
+                            </th>
                             <th class="th-sm">Action
 
                             </th>
@@ -25,6 +28,7 @@
                                     <td>{{$task->domain_name}}</td>
                                     <td>{{$task->datetime}}</td>
                                     <td>{{$task->end_datetime}}</td>
+                                    <td>{{$task->req_p_sec}}</td>
                                     <td>
                                         <button type="button" class="close" aria-label="Close" onclick="deleteThis({{$task->id}})">
                                              <span aria-hidden="true">&times;</span>
@@ -46,6 +50,9 @@
 
                             </th>
                             <th class="th-sm">End Time
+
+                            </th>
+                            <th class="th-sm">Request/Sec
 
                             </th>
                             <th class="th-sm">Action

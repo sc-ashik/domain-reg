@@ -79,6 +79,7 @@ class TaskController extends Controller
                     "begin_time"=>$requested_at,
                     "end_time"=>$received_at,
                     "req_count"=>1,
+                    "last_response"=>$received_at,
                     "response"=>"success:".$success
                 ]);
             }
@@ -99,7 +100,7 @@ class TaskController extends Controller
             // return $datetime;
             
             foreach($domains as $domain){
-                Task::create(["domain_name"=>$domain,"scheduled_at"=>$begin_microsecond,"datetime"=>$begin_datetime,'end_at'=>$end_microsecond,"end_datetime"=>$end_datetime]);
+                Task::create(["domain_name"=>$domain,"scheduled_at"=>$begin_microsecond,"datetime"=>$begin_datetime,'end_at'=>$end_microsecond,"end_datetime"=>$end_datetime,'req_p_sec'=>$request->input('req_p_sec')]);
             }
         }
         return Redirect::back()->with('message', 'Successfully scheduled!');

@@ -50,7 +50,10 @@
                                 <p>Stop Datetime</p>
                                 <input type="datetime-local" name="end" id="time" step="1"/>
                             </div>
-
+                            <div>
+                                <p> Request/sec</p>
+                                <input class='numB' type="number" name='req_p_sec' value='10'>
+                            </div>
                             
                             <div class="btn-block">
                             <input id="regBtn" class="button" type="submit" name="register" value="Register Now" />
