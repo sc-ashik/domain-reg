@@ -51,7 +51,7 @@
                                 <input type="datetime-local" name="end" id="time" step="1"/>
                             </div>
                             <div>
-                                <p> Sleep Time</p>
+                                <p> Sleep Time in milliseconds</p>
                                 <input class='numB' type="number" name='req_p_sec' value='10'>
                             </div>
                             
