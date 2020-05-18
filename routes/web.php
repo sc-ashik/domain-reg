@@ -13,21 +13,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
-Auth::routes(['register' => false]);
-// Auth::routes();
+Route::group(['prefix' => 'domainreg'], function () {
+    Auth::routes(['register' => false]);
+    // Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
-Route::get('/table1', 'HomeController@table1');
-Route::get('/table2', 'HomeController@table2');
-Route::resources([
-    'task' => 'TaskController',
-    'completedtask'=>'CompletedTaskController'
-]);
+    Route::get('/', 'HomeController@index');
+    Route::get('/table1', 'HomeController@table1');
+    Route::get('/table2', 'HomeController@table2');
+    Route::resources([
+        'task' => 'TaskController',
+        'completedtask'=>'CompletedTaskController'
+    ]);
 
-Route::post('resello', function () {
-    return '{"success":true}';
+    Route::post('resello', function () {
+        return '{"success":true}';
+    });
+    
 });

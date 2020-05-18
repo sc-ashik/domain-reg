@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Redirect;
 
 class TaskController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -83,7 +87,7 @@ class TaskController extends Controller
                     "response"=>"success:".$success
                 ]);
             }
-            return redirect('/')->with('message', 'Successfully executed!');
+            return Redirect::back()->with('message', 'Successfully executed!');
             
         }
         else{

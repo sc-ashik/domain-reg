@@ -33,7 +33,7 @@
                             </div>
                         @endif
 
-                        <form method="POST" action="/task">
+                        <form method="POST" action="{{env('SITE_PREFIX')}}/task">
                             @csrf
 
                             <div class="item">
@@ -187,7 +187,7 @@
         });
         function refreshTable() {
             // $('div.table-container1').fadeOut();
-            $('div.table-container1').load("/table1", function() {
+            $('div.table-container1').load("{{env('SITE_PREFIX')}}/table1", function() {
                 // $('div.table-container1').fadeIn();
                 table1=$('#dtBasicExample1').DataTable({
                     order: [[ 0, 'desc' ]],
@@ -196,7 +196,7 @@
                 table1.page(p1).draw('page')
                 // table1.draw(false)
             });
-            $('div.table-container2').load("/table2", function() {
+            $('div.table-container2').load("{{env('SITE_PREFIX')}}/table2", function() {
                 // $('div.table-container1').fadeIn();
                 table2=$('#dtBasicExample2').DataTable({
                     order: [[ 0, 'desc' ]],
@@ -236,7 +236,7 @@
             });
             $.ajax({
                 type:'DELETE',
-                url:"/task/"+id,
+                url:"{{env('SITE_PREFIX')}}/task/"+id,
                 success:function(data){
                     console.log(data);
                 }
@@ -250,7 +250,7 @@
             });
             $.ajax({
                 type:'DELETE',
-                url:"/completedtask/"+id,
+                url:"{{env('SITE_PREFIX')}}/completedtask/"+id,
                 success:function(data){
                     console.log(data);
                 }
