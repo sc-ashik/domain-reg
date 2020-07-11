@@ -18,7 +18,7 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'domainreg'], function () {
-    Auth::routes(['register' => true]);
+    Auth::routes(['register' => false]);
     // Auth::routes();
 
     Route::get('/', 'HomeController@index');
