@@ -16,6 +16,9 @@
                             <th class="th-sm">Sleep Time
 
                             </th>
+                            <th class="th-sm">Api
+
+                            </th>
                             <th class="th-sm">Action
 
                             </th>
@@ -29,6 +32,7 @@
                                     <td>{{$task->datetime}}</td>
                                     <td>{{$task->end_datetime}}</td>
                                     <td>{{$task->req_p_sec}} ms</td>
+                                    <td>{{$task->api}}</td>
                                     <td>
                                         <button type="button" class="close" aria-label="Close" onclick="deleteThis({{$task->id}})">
                                              <span aria-hidden="true">&times;</span>
@@ -53,6 +57,9 @@
 
                             </th>
                             <th class="th-sm">Sleep Time
+
+                            </th>
+                            <th class="th-sm">Api
 
                             </th>
                             <th class="th-sm">Action

@@ -22,6 +22,9 @@
                             <th class="th-sm"> Last Response
 
                             </th>
+                            <th class="th-sm">Api
+
+                            </th>
                             <th class="th-sm"> Action
 
                             </th>
@@ -40,6 +43,7 @@
                                     <td>{{$task->response}}</td>
                                     <td>{{$task->req_count}}</td>
                                     <td>{{$task->last_response}}</td>
+                                    <td>{{$task->api}}</td>
                                     <td>
                                         <button type="button" class="close" aria-label="Close" onclick="deleteThisCom({{$task->id}})">
                                              <span aria-hidden="true">&times;</span>
@@ -72,6 +76,9 @@
 
                             </th>
                             <th class="th-sm"> Last Response
+
+                            </th>
+                            <th class="th-sm">Api
 
                             </th>
                             <th class="th-sm"> Action

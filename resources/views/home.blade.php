@@ -46,11 +46,26 @@
                                 <p>Start Datetime</p>
                                 <input id="date" step="1" type="datetime-local" name="begin" min="{{$minDate}}"/>
                             </div>
-                                <div class="item">
+                            <div class="item">
+                                <p style="margin-bottom: 0px;">Seconds to run for</p>
+                                <input id="time" class='numB' type="number" name='end' value='5' min='1'>
+                            </div>
+                            {{-- <div class="item">
                                 <p>Stop Datetime</p>
                                 <input type="datetime-local" name="end" id="time" step="1"/>
+                            </div> --}}
+                            <div class="item p-3 border border-secondery">
+                                <h5>Select a service</h5>
+                                <div class="form-check align-content-center">
+                                <input class="form-check-input" name="resello" type="checkbox" id="inlineCheckbox1" value="resello" checked>
+                                <label class="form-check-label" for="inlineCheckbox1">Resello Api </label>
+                                </div>
+                                <div class="form-check align-content-center">
+                                <input class="form-check-input" name="namecheap" type="checkbox" id="inlineCheckbox2" value="namecheap" checked>
+                                <label class="form-check-label" for="inlineCheckbox2">Namecheap Api</label>
+                                </div>
                             </div>
-                            <div>
+                            <div class="item">
                                 <p> Sleep Time in milliseconds</p>
                                 <input class='numB' type="number" name='req_p_sec' value='10'>
                             </div>
@@ -94,6 +109,7 @@
         </div>
         
     </div>
+
     <script type="application/javascript"> 
         // Date.prototype.timeNow = function () {
         //     return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + (this.getMinutes());
@@ -116,6 +132,16 @@
             //         $('#time').removeAttr('min')
             //     }
             // })
+
+
+            const now = new Date();
+            // console.log(now.toISOString().slice(0, -5)+" "+now.getMinutes()+" "+now.getTimezoneOffset())
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset()+2);
+            // console.log(now.toISOString().slice(0, -5))
+            document.getElementById('date').value = now.toISOString().slice(0, -5);
+
+
+
             $("#scBtn").click(function(e){
                 var splitted=$("#domains").val().split("\n")
                 // console.log("zz "+splitted)
@@ -157,11 +183,11 @@
                     // e.preventDefault()
                 }
                 else{
-                    var now = new Date()
-                    var selected=new Date(time)
-                    console.log(now+" " +selected)
-                    if(selected<=now)
-                        document.getElementById("time").setCustomValidity("Can't be Past")
+                    // var now = new Date()
+                    // var selected=new Date(time)
+                    // console.log(now+" " +selected)
+                    if(time<3)
+                        document.getElementById("time").setCustomValidity("Can't be less than 3 s")
                     else
                         document.getElementById("time").setCustomValidity('')
                     // alert(1)
@@ -268,8 +294,5 @@
         };
     </script>
 </div>
-
-
-
 
 @endsection

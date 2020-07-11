@@ -21,6 +21,7 @@ class CreateCompletedTasksTable extends Migration
             $table->bigInteger("req_count");
             $table->dateTime("last_response");
             $table->string("response");
+            $table->string("api");
             $table->timestamps();
         });
     }
