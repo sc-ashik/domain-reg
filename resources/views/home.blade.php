@@ -64,6 +64,11 @@
                                 <input class="form-check-input" name="namecheap" type="checkbox" id="inlineCheckbox2" value="namecheap" checked>
                                 <label class="form-check-label" for="inlineCheckbox2">Namecheap Api</label>
                                 </div>
+                                <div class="form-check align-content-center">
+                                <input class="form-check-input" name="secureapi" type="checkbox" id="inlineCheckbox2" value="secureapi" checked>
+                                <label class="form-check-label" for="inlineCheckbox2">Secure Api</label>
+                                </div>
+                                
                             </div>
                             <div class="item">
                                 <p> Sleep Time in milliseconds</p>

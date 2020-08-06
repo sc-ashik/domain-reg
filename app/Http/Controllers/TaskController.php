@@ -165,6 +165,130 @@ class TaskController extends Controller
             "api"=>"namecheap"
         ]);
     }
+    public function getRegistrantID(){
+        $url="https://soap-test.secureapi.com.au/API-2.0.wsdl";
+        // var_dump($url);
+        $client = new Client([
+            'headers'=>array('content-type'=> 'application/soap+xml')
+        ]);
+        $response = $client->post($url,
+        [
+            "body"=>'<?xml version="1.0" encoding="UTF-8"?>
+<env:Envelope xmlns:env="http://www.w3.org/2003/05/soap-envelope" xmlns:ns1="http://soap-test.secureapi.com.au/API-2.0">
+	<env:Header>
+		<ns1:Authenticate> 
+			<AuthenticateRequest>
+				<ResellerID>23172</ResellerID>
+				<APIKey>e165aee9aa5765c36273ee5efb61c584</APIKey> 
+			</AuthenticateRequest>
+		</ns1:Authenticate> 
+	</env:Header> 
+	<env:Body>
+		<ns1:ContactCloneToRegistrant> 
+			<ContactCloneToRegistrantRequest>
+				<ContactIdentifier>C-001172439-SN</ContactIdentifier> 
+			</ContactCloneToRegistrantRequest>
+		</ns1:ContactCloneToRegistrant>
+	</env:Body>
+</env:Envelope>'
+        ]);
+        $body=str_replace("https://{__HOSTNAME__}/API-2.0",$url,$response->getBody());
+        // echo $body;  
+
+        $xmlResponse = simplexml_load_string($body);
+        return $xmlResponse->xpath('.//ContactIdentifier')[0]->__toString();
+        // echo ($xmlResponse->children('http://www.w3.org/2003/05/soap-envelope')->body);
+        // foreach($xmlResponse->children('http://www.w3.org/2003/05/soap-envelope')->Body->children($url) as $e){
+        //     echo $e->getName().'\n';
+        // }
+        // // echo $response->getBody();
+        // print_r($response->getBody());
+        // die();
+    }
+    public function secureApiReg($domain){
+    
+        $url="https://soap-test.secureapi.com.au/API-2.0.wsdl";
+        // var_dump($url);
+        $client = new Client([
+            'headers'=>array('content-type'=> 'application/soap+xml')
+        ]);
+        $registrantID=$this->getRegistrantID();
+        $requested_at=Carbon::now();
+        $response = $client->post($url,
+        [
+            "body"=>'<?xml version="1.0" encoding="UTF-8"?>
+<env:Envelope xmlns:env="http://www.w3.org/2003/05/soap-envelope" xmlns:ns1="http://soap-test.secureapi.com.au/API-2.0">
+	<env:Header>
+		<ns1:Authenticate> 
+			<AuthenticateRequest>
+				<ResellerID>23172</ResellerID>
+				<APIKey>e165aee9aa5765c36273ee5efb61c584</APIKey> 
+			</AuthenticateRequest>
+		</ns1:Authenticate> 
+	</env:Header> 
+	<env:Body>
+ 		<ns1:DomainCreate> 
+			<DomainCreateRequest>
+				<DomainName>'.$domain.'</DomainName> 				
+				<RegistrantContactIdentifier>'.$registrantID.'</RegistrantContactIdentifier> 
+				<AdminContactIdentifier>C-001172439-SN</AdminContactIdentifier> 
+				<BillingContactIdentifier>C-001172439-SN</BillingContactIdentifier> 
+				<TechContactIdentifier>C-001172439-SN</TechContactIdentifier>
+				<RegistrationPeriod>1</RegistrationPeriod>
+				<NameServers>
+					<item xsi:type="ns1:NameServer"> 
+						<Host>ns1.parkme.com.au</Host> 
+						<IP>203.170.87.1</IP>
+					</item>
+					<item xsi:type="ns1:NameServer">
+						<Host>ns2.parkme.com.au</Host>
+						<IP>203.170.87.2</IP> 
+					</item>
+				</NameServers>
+			</DomainCreateRequest>
+		</ns1:DomainCreate>
+	</env:Body> 
+</env:Envelope>'
+
+        ]);
+        $received_at=Carbon::now();
+
+        $body=str_replace("https://{__HOSTNAME__}/API-2.0",$url,$response->getBody());
+        // echo $body;  
+
+        $xmlResponse = simplexml_load_string($body);
+        // print_r($xmlResponse->xpath('.//DomainDetails'));
+        $success="False";
+        if(!empty($xmlResponse->xpath('.//DomainDetails')))
+            $success="True";
+        // echo $success;
+        // die();
+        // $rjson=$xmlResponse->xpath("ApiResponse");
+        // var_dump($rjson);
+        // $success=(string)$xmlResponse->CommandResponse->DomainCreateResult->attributes()->Registered;
+        // echo "<pre>";
+
+        // print_r($success);
+        // echo "</pre>";
+
+        // die();
+
+        // JSON encode the XML, and then JSON decode to an array.
+        // $rjson = json_decode(json_encode($xmlResponse), true);
+        // var_dump($rjson);
+        
+        // return ;
+        // $success = $rjson->success? 'true' : 'false';
+        CompletedTask::create([
+            "domain_name"=>$domain,
+            "begin_time"=>$requested_at,
+            "end_time"=>$received_at,
+            "req_count"=>1,
+            "last_response"=>$received_at,
+            "response"=>"success:".$success,
+            "api"=>"secureapi"
+        ]);
+    }    
     public function store(Request $request)
     {
         // return $request->all();
@@ -176,7 +300,9 @@ class TaskController extends Controller
                 // return $domain;
                 if($request->input("resello"))
                     $this->reselloReg($domain);
-                else
+                if($request->input("secureapi"))
+                    $this->secureApiReg($domain);
+                if($request->input("namecheap"))
                     $this->namecheapReg($domain);
             }
             return Redirect::back()->with('message', 'Successfully executed!');
@@ -204,6 +330,8 @@ class TaskController extends Controller
                     Task::create(["domain_name"=>$domain,"scheduled_at"=>$begin_microsecond,"datetime"=>$begin_datetime,'end_at'=>$end_microsecond,"end_datetime"=>$end_datetime,'req_p_sec'=>$request->input('req_p_sec'),'api'=>"resello"]);
                 if($request->input("namecheap"))
                     Task::create(["domain_name"=>$domain,"scheduled_at"=>$begin_microsecond,"datetime"=>$begin_datetime,'end_at'=>$end_microsecond,"end_datetime"=>$end_datetime,'req_p_sec'=>$request->input('req_p_sec'),"api"=>"namecheap"]);
+                if($request->input("secureapi"))
+                    Task::create(["domain_name"=>$domain,"scheduled_at"=>$begin_microsecond,"datetime"=>$begin_datetime,'end_at'=>$end_microsecond,"end_datetime"=>$end_datetime,'req_p_sec'=>$request->input('req_p_sec'),"api"=>"secureapi"]);
             }
         }
         return Redirect::back()->with('message', 'Successfully scheduled!');
