@@ -40,4 +40,8 @@ class HomeController extends Controller
         $completed_tasks=CompletedTask::orderBy("id","desc")->get();
         return view('table2',["completed_tasks"=>$completed_tasks]);
     }
+    // public function getLog(){
+    //     // die("dd");
+    //     return File::get(__DIR__ . '../../../');
+    // }
 }

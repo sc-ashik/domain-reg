@@ -38,8 +38,7 @@
 
                             <div class="item">
                                 <p>Enter one domains per line </p>
-                                <textarea id="domains" name="domains" rows="3" oninvalid="InvalidMsg(this);" 
-           oninput="InvalidMsg(this);" required ></textarea>
+                                <textarea id="domains" name="domains" rows="3" onblur="InvalidMsg(this);" required ></textarea>
                             </div>
 
                             <div class="item">
@@ -240,6 +239,7 @@
             });
         }
         function InvalidMsg(textbox) {
+            console.log("icall")
             var splitted = $('#domains').val().split("\n");
             // console.log(splitted)
             var flag=true
